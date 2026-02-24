@@ -9,8 +9,8 @@ A data-driven investigation into mobile money payment failures for a Ghana-based
 
 > **Tools:** PostgreSQL &nbsp;|&nbsp; **Market:** Ghana Fintech &nbsp;|&nbsp; **Role:** Data Analyst &nbsp;|&nbsp; **Records:** 2,111 Transactions
 
----
-
+---![Descriptive alt text](.[/images/screenshot.png](https://github.com/Sannisaheedsanni/Mobile-Money-Payment-Failure-Analysis-PayFlow-GH/blob/23c2b53ff21c836fb6892db54c4536c6c808d2bf/saas.jpg
+)).
 <!-- 💡 IMAGE SUGGESTION #1: Add a clean project banner here -->
 <!-- A simple banner with "PayFlow GH | Payment Failure Analysis" text on a dark background -->
 <!-- You can create one free at canva.com — recommended size 1280x640px -->
