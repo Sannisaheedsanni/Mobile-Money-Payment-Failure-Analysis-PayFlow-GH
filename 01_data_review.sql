@@ -1,14 +1,7 @@
--- ============================================================
--- PayFlow GH | Mobile Money Payment Failure Analysis
--- FILE: 01_data_review.sql
--- PURPOSE: Full data audit before cleaning
--- Author: Sanni Saheed
--- ============================================================
-
 
 -- ────────────────────────────────────────────────────────────
 -- BLOCK 1: GET THE SHAPE OF THE DATA
--- Understand what we are working with before touching anything
+-- Understanding what we are working with before touching anything
 -- ────────────────────────────────────────────────────────────
 
 -- Total row count
@@ -62,21 +55,20 @@ ORDER BY id_count DESC;
 -- ────────────────────────────────────────────────────────────
 
 SELECT
-    COUNT(*)                                                    AS total_rows,
-    COUNT(*) - COUNT(transaction_id)                            AS null_transaction_id,
-    COUNT(*) - COUNT(NULLIF(TRIM(customer_id), ''))             AS null_customer_id,
-    COUNT(*) - COUNT(NULLIF(TRIM(customer_name), ''))           AS null_customer_name,
-    COUNT(*) - COUNT(NULLIF(TRIM(city), ''))                    AS null_city,
-    COUNT(*) - COUNT(NULLIF(TRIM(subscription_plan), ''))       AS null_plan,
-    COUNT(*) - COUNT(NULLIF(TRIM(amount_ghs), ''))              AS null_amount,
-    COUNT(*) - COUNT(NULLIF(TRIM(network), ''))                 AS null_network,
-    COUNT(*) - COUNT(NULLIF(TRIM(transaction_type), ''))        AS null_type,
-    COUNT(*) - COUNT(NULLIF(TRIM(status), ''))                  AS null_status,
-    COUNT(*) - COUNT(NULLIF(TRIM(failure_reason), ''))          AS null_failure_reason,
-    COUNT(*) - COUNT(NULLIF(TRIM(retry_attempted), ''))         AS null_retry,
-    COUNT(*) - COUNT(NULLIF(TRIM(transaction_time), ''))        AS null_time,
-    COUNT(*) - COUNT(NULLIF(TRIM(day_of_week), ''))             AS null_day,
-    COUNT(*) - COUNT(NULLIF(TRIM(is_peak_day), ''))             AS null_peak_day
+    COUNT(*) - COUNT(transaction_id) AS null_transaction_id,
+    COUNT(*) - COUNT(customer_id) AS null_customer_id,
+    COUNT(*) - COUNT(customer_name) AS null_customer_name,
+    COUNT(*) - COUNT(city) AS null_city,
+    COUNT(*) - COUNT(subscription_plan) AS null_plan,
+    COUNT(*) - COUNT(amount_ghs) AS null_amount,
+    COUNT(*) - COUNT(network) AS null_network,
+    COUNT(*) - COUNT(transaction_type) AS null_type,
+    COUNT(*) - COUNT(status) AS null_status,
+    COUNT(*) - COUNT(failure_reason) AS null_failure_reason,
+    COUNT(*) - COUNT(retry_attempted) AS null_retry,
+    COUNT(*) - COUNT(transaction_time) AS null_time,
+    COUNT(*) - COUNT(day_of_week) AS null_day,
+    COUNT(*) - COUNT(is_peak_day) AS null_peak_day
 FROM payflow_transactions;
 
 
@@ -89,7 +81,7 @@ FROM payflow_transactions;
 -- If yes -- nulls are expected and correct
 SELECT status, COUNT(*) AS count
 FROM payflow_transactions
-WHERE failure_reason IS NULL OR TRIM(failure_reason) = ''
+WHERE failure_reason IS NULL
 GROUP BY status;
 
 -- Do null timestamps cluster around a specific network or status?
@@ -106,33 +98,27 @@ ORDER BY count DESC;
 -- ────────────────────────────────────────────────────────────
 
 -- City name variants
-SELECT city, COUNT(*) AS count
+SELECT DISTINCT city
 FROM payflow_transactions
-GROUP BY city
 ORDER BY city;
 
 -- Network variants
-SELECT network, COUNT(*) AS count
+SELECT DISTINCT network
 FROM payflow_transactions
-GROUP BY network
 ORDER BY network;
 
 -- Status variants
-SELECT status, COUNT(*) AS count
+SELECT DISTINCT status
 FROM payflow_transactions
-GROUP BY status
 ORDER BY status;
-
 -- Subscription plan variants
-SELECT subscription_plan, COUNT(*) AS count
+SELECT DISTINCT subscription_plan
 FROM payflow_transactions
-GROUP BY subscription_plan
 ORDER BY subscription_plan;
 
 -- Transaction type variants
-SELECT transaction_type, COUNT(*) AS count
+SELECT DISTINCT transaction_type
 FROM payflow_transactions
-GROUP BY transaction_type
 ORDER BY transaction_type;
 
 
@@ -146,14 +132,6 @@ SELECT COUNT(*) AS ghs_prefix_count
 FROM payflow_transactions
 WHERE amount_ghs LIKE 'GHS%';
 
--- Check min, max, average after stripping symbols
-SELECT
-    MIN(REPLACE(REPLACE(TRIM(amount_ghs), 'GHS ', ''), ',', '.')::NUMERIC) AS min_amount,
-    MAX(REPLACE(REPLACE(TRIM(amount_ghs), 'GHS ', ''), ',', '.')::NUMERIC) AS max_amount,
-    ROUND(AVG(REPLACE(REPLACE(TRIM(amount_ghs), 'GHS ', ''), ',', '.')::NUMERIC), 2) AS avg_amount
-FROM payflow_transactions
-WHERE amount_ghs != '' AND amount_ghs IS NOT NULL;
-
 
 -- ────────────────────────────────────────────────────────────
 -- BLOCK 7: CROSS COLUMN LOGIC CHECKS
@@ -164,14 +142,13 @@ WHERE amount_ghs != '' AND amount_ghs IS NOT NULL;
 SELECT COUNT(*) AS failed_no_reason
 FROM payflow_transactions
 WHERE status = 'failed'
-AND (failure_reason IS NULL OR TRIM(failure_reason) = '');
+AND failure_reason IS NULL;
 
 -- Successful transactions with a failure reason -- should be zero
 SELECT COUNT(*) AS success_with_reason
 FROM payflow_transactions
 WHERE status = 'success'
-AND failure_reason IS NOT NULL
-AND TRIM(failure_reason) != '';
+AND failure_reason IS NOT NULL;
 
 -- Retry breakdown by status -- does retry behaviour align with status?
 SELECT retry_attempted, status, COUNT(*) AS count
