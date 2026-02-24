@@ -1,10 +1,3 @@
--- ============================================================
--- PayFlow GH | Mobile Money Payment Failure Analysis
--- FILE: 03_analysis.sql
--- PURPOSE: Full diagnostic analysis of payment failures
--- Author: Sanni Saheed
--- ============================================================
-
 
 -- ────────────────────────────────────────────────────────────
 -- SECTION 1: OVERALL PAYMENT HEALTH
@@ -14,8 +7,8 @@
 -- Transaction status breakdown
 SELECT
     status,
-    COUNT(*)                                                        AS transactions,
-    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2)             AS percentage
+    COUNT(*)   AS transactions,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS percentage
 FROM payflow_clean
 GROUP BY status
 ORDER BY transactions DESC;
@@ -59,8 +52,8 @@ ORDER BY month;
 -- Failure reasons ranked by revenue lost
 SELECT
     failure_reason,
-    COUNT(*)            AS failed_transactions,
-    SUM(amount)         AS ghs_lost
+    COUNT(*)  AS failed_transactions,
+    SUM(amount) AS ghs_lost
 FROM payflow_clean
 WHERE status = 'failed'
 GROUP BY failure_reason
@@ -76,10 +69,10 @@ ORDER BY ghs_lost DESC;
 -- Uses failure rate not just count -- volume alone is misleading
 SELECT
     network,
-    COUNT(*)                                                                            AS total_txns,
-    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END)                                 AS failed_txns,
+    COUNT(*) AS total_txns,
+    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed_txns,
     ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2)    AS failure_rate_pct,
-    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END)                             AS ghs_lost
+    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END) AS ghs_lost
 FROM payflow_clean
 GROUP BY network
 ORDER BY failure_rate_pct DESC;
@@ -90,8 +83,8 @@ ORDER BY failure_rate_pct DESC;
 SELECT
     network,
     retry_attempted,
-    COUNT(*)                                                                AS count,
-    ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (PARTITION BY network), 2) AS pct
+    COUNT(*)  AS count,
+    ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (PARTITION BY network), 2) AS pct_of_no_retry
 FROM payflow_clean
 WHERE status = 'failed'
 GROUP BY network, retry_attempted
@@ -106,10 +99,10 @@ ORDER BY network, retry_attempted;
 -- Failure rate and revenue lost by subscription plan
 SELECT
     subscription_plan,
-    COUNT(*)                                                                            AS total_txns,
-    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END)                                 AS failed_txns,
-    ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2)    AS failure_rate_pct,
-    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END)                             AS ghs_lost
+    COUNT(*)  AS total_txns,
+    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed_txns,
+    ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failure_rate_pct,
+    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END)  AS ghs_lost
 FROM payflow_clean
 GROUP BY subscription_plan
 ORDER BY ghs_lost DESC;
@@ -123,10 +116,10 @@ ORDER BY ghs_lost DESC;
 -- Revenue lost and failure rate by city
 SELECT
     city,
-    COUNT(*)                                                                            AS total_txns,
-    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END)                                 AS failed_txns,
-    ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2)    AS failure_rate_pct,
-    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END)                             AS ghs_lost
+    COUNT(*) AS total_txns,
+    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed_txns,
+    ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failure_rate_pct,
+    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END) AS ghs_lost
 FROM payflow_clean
 GROUP BY city
 ORDER BY ghs_lost DESC;
@@ -141,10 +134,10 @@ ORDER BY ghs_lost DESC;
 -- Failure rate and revenue lost by transaction type
 SELECT
     transaction_type,
-    COUNT(*)                                                                            AS total_txns,
-    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END)                                 AS failed_txns,
-    ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2)    AS failure_rate_pct,
-    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END)                             AS ghs_lost
+    COUNT(*) AS total_txns,
+    SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed_txns,
+    ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failure_rate_pct,
+    SUM(CASE WHEN status = 'failed' THEN amount ELSE 0 END) AS ghs_lost
 FROM payflow_clean
 GROUP BY transaction_type
 ORDER BY failure_rate_pct DESC;
