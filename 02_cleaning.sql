@@ -1,10 +1,3 @@
--- ============================================================
--- PayFlow GH | Mobile Money Payment Failure Analysis
--- FILE: 02_cleaning.sql
--- PURPOSE: Build payflow_clean -- the trusted analysis table
--- Author: Sanni Saheed
--- ============================================================
-
 
 -- ────────────────────────────────────────────────────────────
 -- STEP 1: BUILD THE CLEAN TABLE
@@ -17,19 +10,17 @@ SELECT
     customer_id,
 
     -- Remove leading and trailing whitespace from names
-    TRIM(customer_name)                                         AS customer_name,
+    TRIM(customer_name)  AS customer_name,
 
     -- Standardise city casing
     -- INITCAP handles all casing variants: accra, ACCRA, Accra → Accra
     -- No misspellings found in audit so INITCAP is sufficient
-    INITCAP(TRIM(city))                                         AS city,
-
+    INITCAP(TRIM(city))  AS city,
     subscription_plan,
 
     -- Strip GHS currency prefix and cast to numeric
     -- TRIM removes whitespace left after stripping the symbol
-    TRIM(REPLACE(amount_ghs, 'GHS', ''))::NUMERIC               AS amount,
-
+    TRIM(REPLACE(amount_ghs, 'GHS', ''))::NUMERIC AS amount,
     network,
     transaction_type,
     status,
@@ -37,25 +28,20 @@ SELECT
     -- Null failure reasons are expected for successful transactions
     -- No change needed -- retained as is
     failure_reason,
-
     retry_attempted,
 
     -- Cast timestamp safely
     -- NULLIF converts empty strings to NULL before casting
     -- Prevents Postgres throwing an error on blank timestamp fields
-    CAST(NULLIF(TRIM(transaction_time), '') AS TIMESTAMP)       AS transaction_time,
-
+    CAST(transaction_time) AS TIMESTAMP)  AS transaction_time,
     day_of_week,
     is_peak_day
-
-FROM payflow_transactions
-WHERE transaction_id IS NOT NULL
-  AND transaction_id != '';
+FROM payflow_transactions;
 
 
 -- ────────────────────────────────────────────────────────────
 -- STEP 2: VERIFY THE CLEAN TABLE
--- Never assume the cleaning worked -- always confirm
+-- confirming the cleaning worked
 -- ────────────────────────────────────────────────────────────
 
 -- Row count should match raw table
