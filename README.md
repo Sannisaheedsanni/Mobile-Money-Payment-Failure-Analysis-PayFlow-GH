@@ -33,7 +33,7 @@ Key business metrics monitored in this analysis:
 
 The SQL queries used to inspect and clean the data can be found here → [`sql/01_data_review.sql`](https://github.com/Sannisaheedsanni/Mobile-Money-Payment-Failure-Analysis-PayFlow-GH/blob/eaffa48013d6bd11d6aac27034b2ab4166ef78cd/01_data_review.sql) and [`sql/02_cleaning.sql`]([sql/02_cleaning.sql](https://github.com/Sannisaheedsanni/Mobile-Money-Payment-Failure-Analysis-PayFlow-GH/blob/e648615e9242d4679eae6139f7a8135285563bf2/02_cleaning.sql))
 
-The targeted SQL queries used for business analysis can be found here → [`sql/03_analysis.sql`](sql/03_analysis.sql)
+The targeted SQL queries used for business analysis can be found here → [`sql/03_analysis.sql`](03_analysis.sql)
 
 The stakeholder memo summarising findings for non-technical leadership can be found here → [`memo/findings_summary.md`](memo/findings_summary.md)
 
