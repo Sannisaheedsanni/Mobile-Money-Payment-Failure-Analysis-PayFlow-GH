@@ -5,7 +5,7 @@ A data-driven investigation into mobile money payment failures for a Ghana-based
 
 
 
-# 📊 PayFlow GH — Mobile Money Payment Failure Analysis
+## 📊 PayFlow GH — Mobile Money Payment Failure Analysis
 
 > **Tools:** PostgreSQL &nbsp;|&nbsp; **Market:** Ghana Fintech &nbsp;|&nbsp; **Role:** Data Analyst &nbsp;|&nbsp; **Records:** 2,111 Transactions
 
