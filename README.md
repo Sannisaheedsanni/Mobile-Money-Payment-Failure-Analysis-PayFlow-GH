@@ -1,8 +1,10 @@
+<img src="PAYFLOW COVER IMAGE.png" alt="Payflow Cover">
+
+
 # Mobile-Money-Payment-Failure-Analysis-PayFlow-GH
 A data-driven investigation into mobile money payment failures for a Ghana-based SaaS platform — covering data cleaning, root cause diagnosis, and business recommendations 
 
 
-<img src="PAYFLOW COVER IMAGE.png" alt="Payflow Cover">
 
 
 
@@ -60,7 +62,7 @@ The PayFlow GH database for this analysis consists of a single transactions tabl
 | `is_peak_day` | Whether the transaction fell on a peak day (end of month or market day) |
 
 
-![database image](db image git.pn)
+<img src="DATABASE.png" alt="Database" width="800">
 <!-- 💡 IMAGE SUGGESTION #2: Add an ERD or simple table schema diagram here -->
 <!-- Since this is a single table project, a clean column map or data dictionary visual works well -->
 <!-- You can screenshot your table structure from pgAdmin or create a simple diagram in dbdiagram.io (free) -->
@@ -101,7 +103,7 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 - **Technical failures account for GHS 7,425** — network timeouts at GHS 5,482.50 and interoperability errors at GHS 1,193.50 represent infrastructure failures entirely outside the customer's control that require direct engineering intervention.
 
 
----![monthly loss](JQ4pG-monthly-loss-trend-.png)
+<img src="MONTHLY TREND.png" alt="Monthly Trend" width="500">
 <!-- 💡 IMAGE SUGGESTION #4: Add a screenshot of your monthly loss query results here -->
 <!-- The month-by-month table showing the trend from 2023 peak down to 2024 is visually compelling -->
 <!-- Screenshot from your SQL client -->
@@ -121,7 +123,7 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 <!-- 💡 IMAGE SUGGESTION #5: Screenshot of your network failure rate query results -->
 <!-- The table showing network | total_txns | failed_txns | failure_rate_pct | ghs_lost is clean and impactful -->
 
----![network failure rate failure cover](iuVFQ-network-failure-rate-.png)
+<img src="NETWORK ANALYSIS REAL GIT.png" alt="Network Analysis" width="500">
 
 
 ### Category 3: Transaction Type Analysis
@@ -137,7 +139,7 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 <!-- 💡 IMAGE SUGGESTION #6: Screenshot of your transaction type granular breakdown query -->
 <!-- The table showing transaction_type | failure_reason | failed_txns | ghs_lost is one of the strongest visuals in the project -->
 
----![porftolio cover](iuVFQ-network-failure-rate-.png)
+
 
 ### Category 4: Peak Day Patterns
 
@@ -212,33 +214,4 @@ Throughout the analysis, several assumptions were made to manage challenges with
 
 ---
 
-### 📂 Repository Structure
 
-```
-payflow-gh-analysis/
-│
-├── README.md                        ← You are here
-├── data/
-│   └── payflow_transactions.csv     ← Raw dataset
-├── sql/
-│   ├── 01_data_review.sql           ← Audit queries
-│   ├── 02_cleaning.sql              ← payflow_clean build
-│   └── 03_analysis.sql              ← All Phase 2 queries
-└── memo/
-    └── findings_summary.md          ← Stakeholder memo
-```
-
----
-
-### 📚 Data Sources
-
-| Source | What It Informed |
-| --- | --- |
-| Bank of Ghana Payment Systems Oversight Annual Report 2024 | MTN 73% market share, average transaction GHS 372, transaction type distribution |
-| GSMA State of the Industry Report on Mobile Money 2024 | Network failure rates, retry behaviour benchmarks |
-| Oxford Business Group Ghana 2024 | AirtelTigo and Vodafone market share |
-| Ghana Statistical Service | City population distribution for transaction volume modelling |
-
----
-
-*Built by Sanni Saheed · PostgreSQL · Ghana Fintech · SaaS Analytics*
