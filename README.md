@@ -3,7 +3,7 @@ A data-driven investigation into mobile money payment failures for a Ghana-based
 
 
 
-![porftolio cover](saas.jpg)
+### ![porftolio cover](saas.jpg)
 
 
 ## 📊 PayFlow GH — Mobile Money Payment Failure Analysis
@@ -16,7 +16,7 @@ A data-driven investigation into mobile money payment failures for a Ghana-based
 
 ---
 
-# Project Background
+### Project Background
 
 PayFlow GH is a Ghanaian SaaS company founded in 2021, operating in the business management software industry. The company sells subscription-based software to small and medium enterprises (SMEs) across Ghana — helping them manage invoicing, payments, and customer records. PayFlow GH operates on a monthly recurring revenue (MRR) model, with customers paying subscription fees entirely via mobile money — MTN MoMo, Vodafone Cash, and AirtelTigo Money.
 
@@ -38,7 +38,7 @@ The stakeholder memo summarising findings for non-technical leadership can be fo
 
 ---
 
-# Data Structure & Initial Checks
+### Data Structure & Initial Checks
 
 The PayFlow GH database for this analysis consists of a single transactions table — `payflow_transactions` — with 2,111 records representing individual mobile money payment attempts made between January 2023 and December 2024.
 
@@ -75,7 +75,7 @@ The PayFlow GH database for this analysis consists of a single transactions tabl
 
 ---
 
-# Executive Summary
+### Executive Summary
 
 ### Overview of Findings
 
@@ -88,7 +88,7 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 
 ---
 
-# Insights Deep Dive
+### Insights Deep Dive
 
 ### Category 1: Revenue Loss & Monthly Trends
 
@@ -100,6 +100,8 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 
 - **Technical failures account for GHS 7,425** — network timeouts at GHS 5,482.50 and interoperability errors at GHS 1,193.50 represent infrastructure failures entirely outside the customer's control that require direct engineering intervention.
 
+
+---![monthly loss](JQ4pG-monthly-loss-trend-.png)
 <!-- 💡 IMAGE SUGGESTION #4: Add a screenshot of your monthly loss query results here -->
 <!-- The month-by-month table showing the trend from 2023 peak down to 2024 is visually compelling -->
 <!-- Screenshot from your SQL client -->
@@ -119,7 +121,8 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 <!-- 💡 IMAGE SUGGESTION #5: Screenshot of your network failure rate query results -->
 <!-- The table showing network | total_txns | failed_txns | failure_rate_pct | ghs_lost is clean and impactful -->
 
----
+---![network failure rate failure cover](iuVFQ-network-failure-rate-.png)
+
 
 ### Category 3: Transaction Type Analysis
 
@@ -134,7 +137,7 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 <!-- 💡 IMAGE SUGGESTION #6: Screenshot of your transaction type granular breakdown query -->
 <!-- The table showing transaction_type | failure_reason | failed_txns | ghs_lost is one of the strongest visuals in the project -->
 
----
+---![porftolio cover](iuVFQ-network-failure-rate-.png)
 
 ### Category 4: Peak Day Patterns
 
@@ -151,7 +154,7 @@ PayFlow GH is losing **GHS 941.68 every month** to unrecovered payment failures 
 
 ---
 
-# Recommendations
+### Recommendations
 
 Based on the insights and findings above, the following recommendations are provided to the PayFlow GH product, engineering, and customer success teams:
 
@@ -167,7 +170,7 @@ Based on the insights and findings above, the following recommendations are prov
 
 ---
 
-# Stakeholder Memo
+### Stakeholder Memo
 
 *The following is the findings memo delivered to Kwame Ofosu, Head of Product, following Phase 1 data validation.*
 
@@ -188,7 +191,7 @@ After these fixes the data is in good shape for analysis. Time-based queries wil
 
 ---
 
-# Assumptions and Caveats
+### Assumptions and Caveats
 
 Throughout the analysis, several assumptions were made to manage challenges with the data:
 
@@ -209,7 +212,7 @@ Throughout the analysis, several assumptions were made to manage challenges with
 
 ---
 
-## 📂 Repository Structure
+### 📂 Repository Structure
 
 ```
 payflow-gh-analysis/
@@ -227,7 +230,7 @@ payflow-gh-analysis/
 
 ---
 
-## 📚 Data Sources
+### 📚 Data Sources
 
 | Source | What It Informed |
 | --- | --- |
