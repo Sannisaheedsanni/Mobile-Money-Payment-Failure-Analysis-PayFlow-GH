@@ -3,13 +3,13 @@ A data-driven investigation into mobile money payment failures for a Ghana-based
 
 
 
+![porftolio cover](saas.jpg)
 
 
 ## 📊 PayFlow GH — Mobile Money Payment Failure Analysis
 
 > **Tools:** PostgreSQL &nbsp;|&nbsp; **Market:** Ghana Fintech &nbsp;|&nbsp; **Role:** Data Analyst &nbsp;|&nbsp; **Records:** 2,111 Transactions
 
-![porftolio cover](saas.jpg)
 <!-- 💡 IMAGE SUGGESTION #1: Add a clean project banner here -->
 <!-- A simple banner with "PayFlow GH | Payment Failure Analysis" text on a dark background -->
 <!-- You can create one free at canva.com — recommended size 1280x640px -->
@@ -59,6 +59,8 @@ The PayFlow GH database for this analysis consists of a single transactions tabl
 | `day_of_week` | Day the transaction occurred |
 | `is_peak_day` | Whether the transaction fell on a peak day (end of month or market day) |
 
+
+![database image](db image git.pn)
 <!-- 💡 IMAGE SUGGESTION #2: Add an ERD or simple table schema diagram here -->
 <!-- Since this is a single table project, a clean column map or data dictionary visual works well -->
 <!-- You can screenshot your table structure from pgAdmin or create a simple diagram in dbdiagram.io (free) -->
