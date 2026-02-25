@@ -2,8 +2,8 @@
 A data-driven investigation into mobile money payment failures for a Ghana-based SaaS platform — covering data cleaning, root cause diagnosis, and business recommendations 
 
 
+<img src="PAYFLOW COVER IMAGE.png" alt="Payflow Cover">
 
-### ![porftolio cover](saas.jpg)
 
 
 ## 📊 PayFlow GH — Mobile Money Payment Failure Analysis
